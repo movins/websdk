@@ -53,8 +53,6 @@
     "/dev",
     "/output",
     "/node_modules",
-    "/src/data",
-    "/src/proto/pb",
-    "/build/proto"
+    "/build"
   ]
 }

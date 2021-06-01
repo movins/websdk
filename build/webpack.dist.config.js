@@ -1,15 +1,14 @@
 var path = require('path');
-var webpack = require('webpack')
 const CompressionPlugin = require('compression-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
-        "websdk.min": "./lib/index.js"
+        'websdk.min': './lib/index.js'
     },
     output: {
         path: path.resolve(__dirname, '..'),
-        filename: "dist/[name].js",
+        filename: 'dist/[name].js',
         libraryTarget: 'umd',
         library: 'websdk',
     },
@@ -23,7 +22,7 @@ module.exports = {
                 test: path.join(__dirname, 'src'),
                 loader: 'babel-loader',
                 query: {
-                    presets: ['es2015', "stage-0"]
+                    presets: ['es2015', 'stage-0']
                 }
             }
         ],
@@ -41,4 +40,4 @@ module.exports = {
             minRatio: 0.8
         }),
     ],
-}
+};
