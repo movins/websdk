@@ -1,5 +1,5 @@
 {
-  "name": "@beeapi/websdk",
+  "name": "@jemoo/websdk",
   "version": "0.0.1",
   "description": "websdk",
   "author": "movinliao@163.com",
@@ -20,11 +20,12 @@
     "registry": "https://registry.npmjs.org"
   },
   "dependencies": {
+    "eventemitter3": "^2.0.0",
     "raw-loader": "^0.5.1",
-    "eventemitter3": "^2.0.0"
+    "yarn": "^1.22.10"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
+    "@movinliao/eslint-config-mlc": "^0.0.4",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
@@ -37,5 +38,23 @@
   "browser": {
     "ws": false,
     "fs": false
-  }
+  },
+  "eslintConfig": {
+    "extends": "@movinliao/eslint-config-mlc",
+    "globals": {
+      "__VERSION__": true,
+      "__DEV__": true
+    },
+    "rules": {
+      "camelcase": 0
+    }
+  },
+  "eslintIgnore": [
+    "/dev",
+    "/output",
+    "/node_modules",
+    "/src/data",
+    "/src/proto/pb",
+    "/build/proto"
+  ]
 }
