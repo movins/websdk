@@ -1,58 +1,63 @@
 {
-  "name": "@jemoo/websdk",
+  "name": "@movins/websdk",
   "version": "0.0.1",
-  "description": "websdk",
-  "author": "movinliao@163.com",
+  "description": "h5 websdk",
+  "author": "movins",
   "repository": {
     "type": "git",
     "url": "https://github.com/movins/websdk.git"
   },
-  "main": "dist/websdk.min.js",
+  "keywords": [
+    "websdk"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "directories": {
+    "lib": "dist",
+    "doc": "doc"
+  },
+  "files": [
+    "dist",
+    "doc"
+  ],
   "engines": {
     "node": ">=6"
   },
-  "scripts": {
-    "dev": "webpack --config build/webpack.dev.config.js && http-server ./ -p 8090",
-    "dist": "webpack --config build/webpack.dist.config.js"
-  },
+  "maintainers": [
+    "movinliao"
+  ],
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
+  "scripts": {
+    "build": "yarn clean && yarn declare && webpack && yarn build:gulp",
+    "dev": "yarn clean && webpack-dev-server --config webpack-dev.config.js",
+    "clean": "rimraf ./dist",
+    "declare": "tsc -p tsconfig.d.json",
+    "pub": "yarn build && npm publish --registry=https://npm-registry.yy.com",
+    "build:gulp": "gulp --gulpfile build/gulp.js"
+  },
   "dependencies": {
-    "eventemitter3": "^2.0.0",
-    "raw-loader": "^0.5.1",
-    "yarn": "^1.22.10"
+    "eventemitter3": "^5.0.0"
   },
   "devDependencies": {
-    "@movinliao/eslint-config-mlc": "^0.0.4",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "http-server": "^0.10.0",
-    "uglifyjs-webpack-plugin": "^1.3.0",
-    "compression-webpack-plugin": "^1.1.12",
-    "webpack": "^3.6.0"
-  },
-  "browser": {
-    "ws": false,
-    "fs": false
-  },
-  "eslintConfig": {
-    "extends": "@movinliao/eslint-config-mlc",
-    "globals": {
-      "__VERSION__": true,
-      "__DEV__": true
-    },
-    "rules": {
-      "camelcase": 0
-    }
-  },
-  "eslintIgnore": [
-    "/dev",
-    "/output",
-    "/node_modules",
-    "/build"
-  ]
+    "@types/node": "^7.0.4",
+    "gulp": "^4.0.2",
+    "es6-map": "^0.1.5",
+    "es6-promise": "^4.2.8",
+    "http-server": "^0.12.3",
+    "mkdirp": "^1.0.4",
+    "rimraf": "^3.0.2",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.7",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "tslint": "^5.18.0",
+    "prettier": "^1.18.2",
+    "tslint-config-prettier": "^1.18.0",
+    "uglify-js": "^3.13.9"
+  }
 }
