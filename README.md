@@ -3,6 +3,8 @@
 #### 介绍
 跨平台H5 SDK 解决方案
 
+
+
 #### 使用说明
     class Demo1 extends websdk.Dispatch {
         constructor() {
