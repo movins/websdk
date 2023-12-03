@@ -1,11 +1,11 @@
 {
 	"include": [
-		"lib/**/*.ts"
+		"src/**/*.ts"
 	],
 	"exclude": [
-		"lib/**/*.d.ts",
-		"lib/test/**/*.ts",
-    "lib/test.ts"
+		"src/**/*.d.ts",
+		"src/android.ts",
+    "src/ios.ts"
 	],
 	"compilerOptions": {
 		"module": "commonjs",
@@ -22,6 +22,6 @@
 		"declaration": true,
 		"emitDeclarationOnly": true,
 		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true
+    "esModuleInterop": true
 	}
 }

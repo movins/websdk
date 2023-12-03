@@ -2,7 +2,7 @@ const gulp = require('gulp');
 
 // 拷贝声明
 gulp.task('declare', async (done) => {
-    await gulp.src('../lib/*.d.ts')
+    await gulp.src('../src/*.d.ts')
         .pipe(gulp.dest('../dist'));
     done();
 });

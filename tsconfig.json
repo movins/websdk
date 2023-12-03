@@ -1,10 +1,10 @@
 {
   "include": [
-    "lib/**/*.ts"
+    "src/**/*.ts"
   ],
 	"exclude": [
-		"lib/test/**/*.ts",
-    "lib/test.ts"
+		"src/android.ts",
+    "src/ios.ts"
 	],
   "compilerOptions": {
     "module": "commonjs",

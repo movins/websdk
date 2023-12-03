@@ -14,15 +14,18 @@ function createConfig(isDev) {
 	let config = {
 		mode: isDev ? 'development' : 'production',
 		entry: {
-			index: path.join(__dirname, `../lib/${(!isDev && 'index') || 'test'}.ts`)
+      index: path.join(__dirname, `../src/${(!isDev && 'index') || 'test'}.ts`),
+      android: path.join(__dirname, '../src/android.ts'),
+      ios: path.join(__dirname, '../src/ios.ts'),
 		},
 		// devtool: "inline-source-map",
 		output: {
 			path: path.join(__dirname, '../dist'),
 			filename: '[name].js',
 			library: 'websdk',
+      globalObject: 'globalThis',
 			libraryTarget: 'umd'
-		},
+    },
 		resolve: {
 			extensions: ['.ts', '.js']
 		},
