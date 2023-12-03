@@ -1,0 +1,34 @@
+import { Dispatch } from '../base';
+import { Console, Log, Sdk, LogTask } from '../interface';
+export declare class LogImpl extends Dispatch implements Log {
+    private root;
+    private static kDelay;
+    private static kHoldMax;
+    private _id;
+    private _print;
+    private _buffers;
+    private _timerId;
+    private _statis;
+    constructor(root: Sdk, print?: Console);
+    get statis(): Record<string, number>;
+    init(): void;
+    log(filter: string, title: string, format?: string, ...args: any[]): LogTask;
+    debug(filter: string, title: string, format?: string, ...args: any[]): LogTask;
+    error(filter: string, title: string, format?: string, ...args: any[]): LogTask;
+    info(filter: string, title: string, format?: string, ...args: any[]): LogTask;
+    append(node: LogTask, format: string, ...args: any[]): void;
+    private doAppend;
+    private incStatis;
+    private decStatis;
+    private activeCount;
+    private appendTask;
+    private handlePrint;
+    private doKindTask;
+    private doPrintTask;
+    private doPrint;
+    static get NAME(): string;
+    static get LOG(): string;
+    static get DEBUG(): string;
+    static get ERROR(): string;
+    static get INFO(): string;
+}

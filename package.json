@@ -1,8 +1,8 @@
 {
-  "name": "@movins/websdk",
+  "name": "@movinliao/websdk",
   "version": "0.0.1",
   "description": "h5 websdk",
-  "author": "movins",
+  "author": "movinliao@163.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/movins/websdk.git"
@@ -11,7 +11,7 @@
     "websdk"
   ],
   "license": "MIT",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "directories": {
     "lib": "dist",
@@ -36,7 +36,7 @@
     "dev": "yarn clean && webpack-dev-server --config webpack-dev.config.js",
     "clean": "rimraf ./dist",
     "declare": "tsc -p tsconfig.d.json",
-    "pub": "yarn build && npm publish --registry=https://npm-registry.yy.com",
+    "pub": "yarn build && npm publish --registry=https://registry.npmjs.org",
     "build:gulp": "gulp --gulpfile build/gulp.js"
   },
   "dependencies": {
