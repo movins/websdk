@@ -1,8 +1,8 @@
 import { TimersImpl } from '../timers'
 import { QueuesImpl } from '../queue'
 import { LogImpl } from '../log'
-import { Sdk, SdkConfig, Win, AppType, Timer, ClientType, Console } from '../interface'
-import { Dispatch, Excuter, argObject, getAgent } from '../base'
+import { Sdk, SdkConfig, Win, Timer, Console, ThemeType, LocaleType } from '../interface'
+import { Dispatch, Excuter, argObject } from '../base'
 import { createWin } from './Win'
 
 class SdkImpl extends Dispatch implements Sdk {
@@ -20,17 +20,19 @@ class SdkImpl extends Dispatch implements Sdk {
     const { name = '', salt = '', console = window.console, nodes = [], prompt } = config
 
     this._console = console
-    const { clientType, appType } = this.appInfo
     this._name = name
-    this._win = window.$Win = createWin(clientType, appType, salt, prompt)
+    const { clientType, appType, theme, locale } = Sdk.appInfo
+    this._win = window.$Win = createWin(clientType, appType, theme, locale, salt, prompt)
     this._timer = new TimersImpl()
     this._log = new LogImpl(this, console)
     this._queues = new QueuesImpl(this)
     this._api = new Excuter('Sdk.Root')
 
     nodes.forEach(node => this._api.add(node))
+    this.handleLocaleChanged = this.handleLocaleChanged.bind(this)
+    this.handleThemeChanged = this.handleThemeChanged.bind(this)
 
-    this?.debug('constructor', `name=${name} salt=${salt} clientType=${clientType} appType=${appType}`)
+    this?.debug('constructor', `name=${name} salt=${salt} clientType=${clientType} appType=${appType} theme=${theme} locale=${locale}`)
   }
 
   init(): void {
@@ -38,7 +40,11 @@ class SdkImpl extends Dispatch implements Sdk {
     this._timer.init()
     this._queues.init()
 
+    this._win.init()
     this._api.init()
+
+    this._win.on(Sdk.OnLocaleChanged, this.handleLocaleChanged)
+    this._win.on(Sdk.OnThemeChanged, this.handleThemeChanged)
 
     this?.debug('init')
   }
@@ -100,20 +106,28 @@ class SdkImpl extends Dispatch implements Sdk {
     return argObject()
   }
 
-  private get appInfo() {
-    let { clientType, appType } = window.$App || {}
-    clientType = clientType || ClientType.Web
-    appType = appType || AppType.Pc
-    if (!appType) {
-      const agent = getAgent()
-      if (agent.android) {
-        appType = AppType.Android
-      } else if (agent.iPhone || agent.iPod || agent.iPad) {
-        appType = AppType.Ios
-      }
-    }
+  changeTheme(val: ThemeType): void {
+    if (this._win.theme !== val) {
+      this._win.theme = val
 
-    return { clientType, appType }
+      this.emit(Sdk.OnThemeChanged, val)
+    }
+  }
+
+  changeLocale(val: LocaleType): void {
+    if (this._win.locale !== val) {
+      this._win.locale = val
+
+      this.emit(Sdk.OnLocaleChanged, val)
+    }
+  }
+
+  private handleLocaleChanged(theme: ThemeType) {
+
+  }
+
+  private handleThemeChanged(locale: LocaleType) {
+
   }
 
   private debug(title: string, content = '') {

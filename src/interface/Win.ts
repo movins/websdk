@@ -9,6 +9,16 @@ export enum AppType {
   Ios = 2
 }
 
+export enum ThemeType {
+  default = 'default',
+  dark = 'dark'
+}
+
+export enum LocaleType {
+  enUS = 'en-US',
+  zhCN = 'zh-CN'
+}
+
 export type ListenerType = (...args: any[]) => void
 export type HandlerType = (...args: any[]) => any
 export type Prompt = (message?: string, _default?: string) => string | null
@@ -16,6 +26,8 @@ export type Prompt = (message?: string, _default?: string) => string | null
 export interface App {
   readonly clientType: ClientType
   readonly appType: AppType
+  theme: ThemeType
+  locale: LocaleType
 }
 
 export interface Win extends App {

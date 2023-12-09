@@ -1,4 +1,4 @@
-import { AppType, ClientType, HandlerType, Win, ListenerType, Prompt } from "../interface/Win"
+import { AppType, ClientType, HandlerType, Win, ListenerType, Prompt, ThemeType, LocaleType } from "../interface/Win"
 import { Console } from "../interface/Console"
 
 class WinImpl implements Win {
@@ -8,6 +8,8 @@ class WinImpl implements Win {
   constructor(
     public readonly clientType: ClientType,
     public readonly appType: AppType,
+    public theme: ThemeType = ThemeType.default,
+    public locale: LocaleType = LocaleType.enUS,
     private salt?: string,
     private prompt: Prompt = window.prompt,
     private console: Console = window.console
@@ -15,7 +17,7 @@ class WinImpl implements Win {
     this._listeners = {}
     this._handlers = {}
 
-    this.log('constructor', `clientType=${clientType} appType=${appType} salt=${salt} prompt=${!!prompt}`)
+    this.log('constructor', `clientType=${clientType} appType=${appType} theme=${theme} locale=${locale} salt=${salt} prompt=${!!prompt}`)
   }
 
   init(salt?: string) {
@@ -144,6 +146,6 @@ export const createIos = () => {
   return new WinImpl(ClientType.App, AppType.Ios)
 }
 
-export const createWin = (clientType: ClientType, appType: AppType, salt?: string, prompt?: Prompt) => {
-  return new WinImpl(clientType, appType, salt, prompt)
+export const createWin = (clientType: ClientType, appType: AppType, theme?: ThemeType, locale?: LocaleType, salt?: string, prompt?: Prompt) => {
+  return new WinImpl(clientType, appType, theme, locale, salt, prompt)
 }
