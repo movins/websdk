@@ -15,8 +15,8 @@ export enum ThemeType {
 }
 
 export enum LocaleType {
-  enUS = 'en-US',
-  zhCN = 'zh-CN'
+  enUS = 'en_US',
+  zhCN = 'zh_CN'
 }
 
 export type ListenerType = (...args: any[]) => void

@@ -12,8 +12,8 @@ export declare enum ThemeType {
     dark = "dark"
 }
 export declare enum LocaleType {
-    enUS = "en-US",
-    zhCN = "zh-CN"
+    enUS = "en_US",
+    zhCN = "zh_CN"
 }
 export type ListenerType = (...args: any[]) => void;
 export type HandlerType = (...args: any[]) => any;
