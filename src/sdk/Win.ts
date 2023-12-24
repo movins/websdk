@@ -10,6 +10,7 @@ class WinImpl implements Win {
     public readonly appType: AppType,
     public theme: ThemeType = ThemeType.default,
     public locale: LocaleType = LocaleType.enUS,
+    public isTest: boolean = false,
     private salt?: string,
     private prompt: Prompt = window.prompt,
     private console: Console = window.console
@@ -146,6 +147,14 @@ export const createIos = () => {
   return new WinImpl(ClientType.App, AppType.Ios)
 }
 
-export const createWin = (clientType: ClientType, appType: AppType, theme?: ThemeType, locale?: LocaleType, salt?: string, prompt?: Prompt) => {
-  return new WinImpl(clientType, appType, theme, locale, salt, prompt)
+export const createWin = (
+  clientType: ClientType,
+  appType: AppType,
+  theme?: ThemeType,
+  locale?: LocaleType,
+  isTest?: boolean,
+  salt?: string,
+  prompt?: Prompt
+) => {
+  return new WinImpl(clientType, appType, theme, locale, isTest, salt, prompt)
 }

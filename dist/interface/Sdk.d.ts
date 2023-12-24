@@ -22,6 +22,7 @@ export declare abstract class Sdk extends Emitter {
         appType: AppType;
         theme: ThemeType;
         locale: LocaleType;
+        isTest: boolean;
     };
 }
 export interface SdkConfig<T extends Excuter = Excuter> {

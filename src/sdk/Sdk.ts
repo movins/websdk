@@ -21,8 +21,8 @@ class SdkImpl extends Dispatch implements Sdk {
 
     this._console = console
     this._name = name
-    const { clientType, appType, theme, locale } = Sdk.appInfo
-    this._win = window.$Win = createWin(clientType, appType, theme, locale, salt, prompt)
+    const { clientType, appType, theme, locale, isTest } = Sdk.appInfo
+    this._win = window.$Win = createWin(clientType, appType, theme, locale, isTest, salt, prompt)
     this._timer = new TimersImpl()
     this._log = new LogImpl(this, console)
     this._queues = new QueuesImpl(this)

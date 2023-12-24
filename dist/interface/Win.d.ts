@@ -23,6 +23,7 @@ export interface App {
     readonly appType: AppType;
     theme: ThemeType;
     locale: LocaleType;
+    isTest: boolean;
 }
 export interface Win extends App {
     init: (salt?: string) => void;

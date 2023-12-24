@@ -22,7 +22,7 @@ export abstract class Sdk extends Emitter {
   abstract changeLocale(val: LocaleType): void
 
   static get appInfo() {
-    let { clientType, appType, theme, locale } = window.$App || {}
+    let { clientType, appType, theme, locale, isTest } = window.$App || {}
     clientType = clientType || ClientType.Web
     appType = appType || AppType.Pc
     if (!appType) {
@@ -34,7 +34,7 @@ export abstract class Sdk extends Emitter {
       }
     }
 
-    return { clientType, appType, theme, locale }
+    return { clientType, appType, theme, locale, isTest }
   }
 }
 

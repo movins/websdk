@@ -127,7 +127,7 @@ export class LogImpl extends Dispatch implements Log {
   private _timerId: any
   private _statis: Record<string, number>
 
-  constructor(private root: Sdk, print?: Console) {
+  constructor(private root: Sdk, print?: Console, ) {
     super()
     this._print = print || console
     this._buffers = new Map()
