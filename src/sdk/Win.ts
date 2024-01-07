@@ -1,4 +1,4 @@
-import { AppType, ClientType, HandlerType, Win, ListenerType, Prompt, ThemeType, LocaleType } from "../interface/Win"
+import { AppType, ClientType, HandlerType, Win, ListenerType, Prompt, ThemeType, LocaleType, ExcuteResult } from "../interface/Win"
 import { Console } from "../interface/Console"
 
 class WinImpl implements Win {
@@ -12,7 +12,7 @@ class WinImpl implements Win {
     public locale: LocaleType = LocaleType.enUS,
     public isTest: boolean = false,
     private salt?: string,
-    private prompt: Prompt = window.prompt,
+    private prompt: Prompt = window.prompt.bind(window),
     private console: Console = window.console
   ) {
     this._listeners = {}
@@ -58,7 +58,7 @@ class WinImpl implements Win {
     this.log('emit', `listener=${!!listener} key=${key} base64=${base64} packed=${packed}`)
   }
 
-  excute(key: string, params: Record<string, any> = {}): Record<string, any> | undefined {
+  excute(key: string, params: Record<string, any> | string = {}): ExcuteResult {
     return this.call(key, params)
   }
 
@@ -80,22 +80,31 @@ class WinImpl implements Win {
     this._handlers[key] = handler
   }
 
-  private call(key: string, params: Record<string, any>): Record<string, any> | undefined {
+  private isJosn(val: string) {
+    return (val.startsWith('{') && val.endsWith('}')) || (val.startsWith('[') && val.endsWith(']'))
+  }
+
+  private call(key: string, params: Record<string, any> | string): ExcuteResult {
     let result = undefined
     let data = undefined
     let args = ''
     let lt = window.performance?.now() || 0
+    const valided = !!this.prompt
     if (this.prompt) {
       try {
         args = JSON.stringify({ key, params, salt: this.salt })
-        data = this.prompt('webview://app?args=' + args) || '{}'
-        result = JSON.parse(data)
+        data = this.prompt('webview://app?args=' + args) || undefined
+        if (data && this.isJosn(data)) {
+          result = JSON.parse(data)
+        } else {
+          result = data
+        }
       } catch (error) {
         result = undefined
       }
     }
     lt = window.performance?.now() || 0 - lt
-    this.log('call', `key=${key} args=${args} result=${!!result} lt=${lt}`)
+    this.log('call', `valided=${valided} key=${key} args=${args} data=${data} result=${!!result} lt=${lt}`)
 
     return result
   }

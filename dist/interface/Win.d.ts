@@ -3,9 +3,10 @@ export declare enum ClientType {
     App = 1
 }
 export declare enum AppType {
-    Pc = 0,
-    Android = 1,
-    Ios = 2
+    None = 0,
+    Pc = 1,
+    Android = 2,
+    Ios = 3
 }
 export declare enum ThemeType {
     default = "default",
@@ -19,17 +20,32 @@ export type ListenerType = (...args: any[]) => void;
 export type HandlerType = (...args: any[]) => any;
 export type Prompt = (message?: string, _default?: string) => string | null;
 export interface App {
+    getClientType: () => ClientType;
+    getAppType: () => AppType;
+    getThemeType: () => ThemeType;
+    getLocaleType: () => LocaleType;
+    getIsTest: () => boolean;
+}
+export interface AppInfo {
     readonly clientType: ClientType;
     readonly appType: AppType;
     theme: ThemeType;
     locale: LocaleType;
     isTest: boolean;
 }
-export interface Win extends App {
+export declare const kDefAppInfo: {
+    clientType: ClientType;
+    appType: AppType;
+    theme: ThemeType;
+    locale: LocaleType;
+    isTest: boolean;
+};
+export type ExcuteResult = Record<string, any> | string | undefined;
+export interface Win extends AppInfo {
     init: (salt?: string) => void;
     invoke: (key: string, base64: string, packed?: boolean) => string | undefined;
     emit: (key: string, base64: string, packed?: boolean) => void;
-    excute: (key: string, param?: Record<string, any>) => Record<string, any> | undefined;
+    excute: (key: string, param?: Record<string, any> | string) => ExcuteResult;
     on: (key: string, listener: ListenerType) => void;
     off: (key: string) => void;
     register: (key: string, handler: HandlerType) => void;
@@ -37,6 +53,6 @@ export interface Win extends App {
 declare global {
     interface Window {
         $Win: Win;
-        $App: App;
+        $App?: App;
     }
 }

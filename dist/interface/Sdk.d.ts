@@ -3,9 +3,10 @@ import { Timer } from './Timer';
 import { Log } from './Log';
 import { Queues } from './Queues';
 import { Console } from './Console';
-import { Win, Prompt, ClientType, AppType, ThemeType, LocaleType } from './Win';
+import { Win, Prompt, ThemeType, LocaleType, AppInfo } from './Win';
 import { Emitter } from './Emitter';
 export declare abstract class Sdk extends Emitter {
+    private static kInfo?;
     static readonly OnThemeChanged = "Sdk.OnThemeChanged";
     static readonly OnLocaleChanged = "Sdk.OnLocaleChanged";
     abstract get timer(): Timer;
@@ -17,13 +18,7 @@ export declare abstract class Sdk extends Emitter {
     abstract get name(): string;
     abstract changeTheme(val: ThemeType): void;
     abstract changeLocale(val: LocaleType): void;
-    static get appInfo(): {
-        clientType: ClientType;
-        appType: AppType;
-        theme: ThemeType;
-        locale: LocaleType;
-        isTest: boolean;
-    };
+    static get appInfo(): Readonly<AppInfo>;
 }
 export interface SdkConfig<T extends Excuter = Excuter> {
     name: string;

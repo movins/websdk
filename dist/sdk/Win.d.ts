@@ -1,4 +1,4 @@
-import { AppType, ClientType, HandlerType, Win, ListenerType, Prompt, ThemeType, LocaleType } from "../interface/Win";
+import { AppType, ClientType, HandlerType, Win, ListenerType, Prompt, ThemeType, LocaleType, ExcuteResult } from "../interface/Win";
 import { Console } from "../interface/Console";
 declare class WinImpl implements Win {
     readonly clientType: ClientType;
@@ -15,10 +15,11 @@ declare class WinImpl implements Win {
     init(salt?: string): void;
     invoke(key: string, base64: string, packed?: boolean): string | undefined;
     emit(key: string, base64: string, packed?: boolean): void;
-    excute(key: string, params?: Record<string, any>): Record<string, any> | undefined;
+    excute(key: string, params?: Record<string, any> | string): ExcuteResult;
     on(key: string, listener: ListenerType): void;
     off(key: string): void;
     register(key: string, handler: HandlerType): void;
+    private isJosn;
     private call;
     private atob;
     private log;
