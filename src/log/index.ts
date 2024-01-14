@@ -2,7 +2,7 @@ import { Dispatch, format } from '../base'
 import { Console, Log, Sdk, LogTask } from '../interface'
 
 class TaskImpl implements LogTask {
-  private static kExpired = 2 * 1000
+  private static kExpired = 2 * 100
   private static kTlFmt = 'tl={%1} {%2}'
 
   private _tl: number

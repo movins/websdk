@@ -24,7 +24,10 @@ export interface App {
     getAppType: () => AppType;
     getThemeType: () => ThemeType;
     getLocaleType: () => LocaleType;
+    getToken: () => string;
+    setToken: (token: string) => void;
     getIsTest: () => boolean;
+    prompt?: Prompt;
 }
 export interface AppInfo {
     readonly clientType: ClientType;

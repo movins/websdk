@@ -89,11 +89,13 @@ class WinImpl implements Win {
     let data = undefined
     let args = ''
     let lt = window.performance?.now() || 0
+    let lt1 = lt
     const valided = !!this.prompt
     if (this.prompt) {
       try {
         args = JSON.stringify({ key, params, salt: this.salt })
         data = this.prompt('webview://app?args=' + args) || undefined
+        lt1 = window.performance?.now() || 0 - lt1
         if (data && this.isJosn(data)) {
           result = JSON.parse(data)
         } else {
@@ -104,7 +106,7 @@ class WinImpl implements Win {
       }
     }
     lt = window.performance?.now() || 0 - lt
-    this.log('call', `valided=${valided} key=${key} args=${args} data=${data} result=${!!result} lt=${lt}`)
+    this.log('call', `valided=${valided} key=${key} args=${args} data=${data} result=${!!result} lt=${lt} lt1=${lt1}`)
 
     return result
   }

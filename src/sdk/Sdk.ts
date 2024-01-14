@@ -17,7 +17,10 @@ class SdkImpl extends Dispatch implements Sdk {
   constructor(config: SdkConfig) {
     super()
 
-    const { name = '', salt = '', console = window.console, nodes = [], prompt } = config
+    const app = window.$App
+    let _prompt = app?.prompt
+    _prompt = (_prompt && _prompt.bind(app)) || undefined
+    const { name = '', salt = '', console = window.console, nodes = [], prompt = _prompt } = config
 
     this._console = console
     this._name = name
@@ -32,7 +35,7 @@ class SdkImpl extends Dispatch implements Sdk {
     this.handleLocaleChanged = this.handleLocaleChanged.bind(this)
     this.handleThemeChanged = this.handleThemeChanged.bind(this)
 
-    this?.debug('constructor', `name=${name} salt=${salt} clientType=${clientType} appType=${appType} theme=${theme} locale=${locale}`)
+    this?.debug('constructor', `name=${name} salt=${salt} clientType=${clientType} appType=${appType} theme=${theme} locale=${locale} prompt=${!!_prompt}`)
   }
 
   init(): void {

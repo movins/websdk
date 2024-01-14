@@ -31,7 +31,7 @@ export abstract class Sdk extends Emitter {
         getAppType = () => AppType.None,
         getThemeType = () => ThemeType.default,
         getLocaleType = () => LocaleType.enUS,
-        getIsTest = () => false,
+        getIsTest = () => false
       } = app || {}
       const clientType = getClientType.call(app)
       let appType = getAppType.call(app)
