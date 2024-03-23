@@ -35,5 +35,6 @@ export interface ClientAgent {
     iPad: boolean;
     iPod: boolean;
     webApp: boolean;
+    pc: boolean;
 }
 export declare const getAgent: () => ClientAgent;

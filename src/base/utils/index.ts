@@ -137,6 +137,7 @@ export interface ClientAgent {
   iPad: boolean
   iPod: boolean
   webApp: boolean
+  pc: boolean
 }
 
 let __agent: ClientAgent
@@ -156,6 +157,9 @@ export const getAgent = () => {
       iPad: agent.indexOf('iPad') > -1, // iPad
       iPod: agent.indexOf('iPod') > -1, // iPod
       webApp: agent.indexOf('Safari') === -1, // is webapp,no header and footer
+      pc: !/Android|iPhone|SymbianOS|Windows Phone|iPad|iPod/i.test(
+        agent
+      )
     }
   }
   return __agent
