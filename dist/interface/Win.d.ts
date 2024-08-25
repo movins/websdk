@@ -14,7 +14,10 @@ export declare enum ThemeType {
 }
 export declare enum LocaleType {
     enUS = "en_US",
-    zhCN = "zh_CN"
+    zhCN = "zh_CN",
+    arSA = "ar_SA",// 阿拉伯语(沙特阿拉伯)
+    arQA = "ar_QA",// 阿拉伯语(卡塔尔)
+    arAE = "ar_AE"
 }
 export type ListenerType = (...args: any[]) => void;
 export type HandlerType = (...args: any[]) => any;
